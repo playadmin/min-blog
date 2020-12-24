@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <import file="components/base.html" name="header" />
+  <style>
+    .install,.input .msg,.install-err{display: none;}
+    .install-err .head,.install-err .foot,.install-err .foot button{background: #e91e63;text-align: center;}
+    .field.inline{width: 7.5rem;margin-right: 1rem;}
+    .install{text-align: center;}
+    .site-link{background: #fff; padding: .4rem 0;}
+    .site-link p{margin: .5rem 0;}
+  </style>
+</head>
+
+<body>
+
+  <div class="container lay-content">
+    <div class="center-box">
+      <p class="title">min-Blog 安装程序</p>
+      <div class="card shadow cfg" style="margin-bottom: .5rem;">
+        <form class="content">
+          <h2 class="t-center">网站配置</h2>
+          <div class="field">
+            <span class="label">站点名称：</span>
+            <div class="input">
+              <input class="line" name="site_name" type="text" placeholder="网站名称">
+              <p class="msg">请输入网站名称：2-32个字符</p>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label">站点标题：</span>
+            <div class="input">
+              <input class="line" name="site_title" type="text" placeholder="网站的Title">
+              <p class="msg">请输入网站标题：2-64个字符</p>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label">站点关键词：</span>
+            <div class="input">
+              <input class="line" name="site_keywords" type="text" placeholder="网站的关键词">
+              <p class="msg">最多1024个字符</p>
+            </div>
+          </div>
+          <div class="field">
+            <div class="input">
+              <textarea style="min-height: 2rem;" name="site_description" type="text" placeholder="网站的描述简介"></textarea>
+              <p class="msg">最多4096个字符</p>
+            </div>
+          </div>
+          <div>
+            <div class="field inline">
+              <span class="label">数据库地址：</span>
+              <div class="input">
+                <input class="line" name="db_host" value="127.0.0.1" type="text" placeholder="Mysql数据库地址">
+                <p class="msg">请输入Mysql数据库地址</p>
+              </div>
+            </div>
+            <div class="field inline">
+              <span class="label">数据库端口：</span>
+              <div class="input">
+                <input class="line" name="db_port" value="3306" type="number" placeholder="Mysql数据库端口">
+                <p class="msg">请输入Mysql数据库端口</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="field inline">
+              <span class="label">数据库名：</span>
+              <div class="input">
+                <input class="line" name="db_name" type="text" placeholder="Mysql数据库名">
+                <p class="msg">请输入Mysql数据库名</p>
+              </div>
+            </div>
+            <div class="field inline">
+              <span class="label">数据表前缀：</span>
+              <div class="input">
+                <input class="line" name="db_prefix" type="text" placeholder="用来区分其它系统表">
+                <p class="msg">最多8个字符</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="field inline">
+              <span class="label">数据库用户：</span>
+              <div class="input">
+                <input class="line" name="db_user" value="root" type="text" placeholder="Mysql数据库用户名">
+                <p class="msg">请输入Mysql数据库用户名</p>
+              </div>
+            </div>
+            <div class="field inline">
+              <span class="label">数据库密码：</span>
+              <div class="input">
+                <input class="line" name="db_passwd" type="text" placeholder="Mysql数据库密码">
+                <p class="msg">请输入Mysql数据库密码</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="field inline">
+              <span class="label">登录账号：</span>
+              <div class="input">
+                <input class="line" name="user_id" type="text" placeholder="系统的登录账号">
+                <p class="msg">请输入登录账号（5-32个字符）</p>
+              </div>
+            </div>
+            <div class="field inline">
+              <span class="label">昵称：</span>
+              <div class="input">
+                <input class="line" name="user_nick" type="text" placeholder="用户昵称">
+                <p class="msg">请输昵称（2-32个字符）</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="field inline">
+              <span class="label">登录密码：</span>
+              <div class="input">
+                <input class="line" name="user_passwd" type="password" placeholder="系统的登录密码">
+                <p class="msg">请输入登录密码（6-32个字符）</p>
+              </div>
+            </div>
+            <div class="field inline">
+              <span class="label">确认密码：</span>
+              <div class="input">
+                <input class="line" name="user_repasswd" type="password" placeholder="确认系统的登录密码">
+                <p class="msg">确认密码不一致</p>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div style="padding: .4rem .4rem 1rem .4rem;">
+          <button class="w100 submit">下 一 步</button>
+        </div>
+      </div>
+      <div class="card shadow alert install">
+        <div class="content">
+          <div class="installing">
+            <p>正在安装</p>
+            <h4>请稍后...</h4>
+            <div class="progress">
+              <div class="indeterminate"></div>
+            </div>
+          </div>
+          <h3 style="padding: .4rem;"></h3>
+          <div class="site-link"></div>
+        </div>
+      </div>
+      <div class="card shadow install-err">
+        <div class="head">出错了</div>
+        <div class="content">111</div>
+        <div class="foot">
+          <button class="full return">返回修改</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <import file="components/base.html" name="footer" />
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.js"></script>
+  <script>
+    $(function () {
+      var V = 0
+      function valid (name, call) {
+        var el = $('.input [name='+name+']');
+        var val = el.val()
+        if(!call(val)){
+          el.next('.msg').show()
+          return false
+        }else{
+          ++V
+          el.next('.msg').hide()
+        }
+        return val || ''
+      }
+      $('button.return').click(function () {
+        $('.install').hide()
+        $('.install-err').hide()
+        $('.cfg').show()
+      })
+      $('button.submit').click(function () {
+        V = 0
+        var data = {}
+        data.site_name = valid('site_name', function (val) {
+          return val && val.length > 1 && val.length < 33
+        })
+        data.site_title = valid('site_title', function (val) {
+          return val && val.length > 1 && val.length < 65
+        })
+        data.site_keywords = valid('site_keywords', function (val) {
+          return !val || val.length < 1025
+        })
+        data.site_description = valid('site_description', function (val) {
+          return !val || val.length < 4097
+        })
+        data.db_host = valid('db_host', function (val) {
+          return val && val.length > 8
+        })
+        data.db_port = valid('db_port', function (val) {
+          val = parseInt(val)
+          return val
+        })
+        data.db_name = valid('db_name', function (val) {
+          return val && val.length
+        })
+        data.db_user = valid('db_user', function (val) {
+          return val && val.length
+        })
+        data.db_passwd = valid('db_passwd', function (val) {
+          return val && val.length
+        })
+        data.db_prefix = valid('db_prefix', function (val) {
+          return !val || val.length < 9
+        })
+        data.user_id = valid('user_id', function (val) {
+          return val && val.length > 4 && val.length < 33
+        })
+        data.user_nick = valid('user_nick', function (val) {
+          return val && val.length > 1 && val.length < 33
+        })
+        data.user_passwd = valid('user_passwd', function (val) {
+          return val && val.length > 5 && val.length < 33
+        })
+        data.user_repasswd = valid('user_repasswd', function (val) {
+          return val && val === $('.input [name=user_repasswd]').val()
+        })
+        console.log(V, data)
+        if (14 !== V) {
+          return false
+        }
+
+        $('.cfg').hide()
+        var install = $('.install')
+        var installing = install.find('.installing')
+        install.show()
+        installing.show()
+        $.post('install.php?a=install', data, function (res) {
+          installing.hide()
+          if (res.status === 200) {
+            install.find('h3').text(res.msg)
+            var html = '<p><a target="_blank" href="'+res.data.index+'">网站首页：'+res.data.url+res.data.index+'</a></p>'
+            html += '<p><a target="_blank" href="'+res.data.admin+'">管理地址：'+res.data.url+res.data.admin+'</a></p>'
+            html += '<p style="color:red;">若要重新安装，请将 /common/config/system.config.php 文件内容清空<br>重装将清空原有数据！</p>'
+            install.find('.site-link').html(html)
+          } else {
+            install.hide()
+            installing.hide()
+            var ERR = $('.install-err')
+            ERR.find('.content').html(res.msg || '未知错误')
+            ERR.show()
+          }
+        })
+      })
+    })
+  </script>
+</body>
+
+</html>

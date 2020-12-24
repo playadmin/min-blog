@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <import file="components/base.html" name="header" />
+</head>
+
+<body>
+  <div class="container lay-content">
+    <p class="title">min-Blog 安装程序</p>
+    <div class="center-box">
+
+        <php if="$noempty">
+          <div class="card shadow alert pink">
+            <div class="content">
+              <h3>警 告：重新安装，原有数据将被清空！请清空下列目录后再安装</h3>
+              <php foreach="$noempty as $v">
+                <p><{$v}></p>
+              </php>
+            </div>
+          </div>
+        </php>
+        <div class="card shadow">
+          <div class="content">
+            <h3 class="center">检查目录及文件权限</h3>
+            <table>
+              <tr><th>目录 / 文件</th><th>状态</th></tr>
+              <php if="$error">
+                <php foreach="$error as $e">
+                  <tr class="c-pink"><td><{$e}></td><td><i class="ico c-pink">✘</i></td></tr>
+                </php>
+              </php>
+              <php if="$success"></php>
+                <php foreach="$success as $s">
+                  <tr class="c-green"><td><{$s}></td><td><i class="ico c-green">✔</i></td></tr>
+                </php>
+              </php>
+            </table>
+          </div>
+        </div>
+        <php if="$error">
+          <div class="card shadow">
+            <div class="content">
+              <p>请修改目录及文件权限后重新检查</p>
+            </div>
+          </div>
+          <a onclick="location.reload()" class="btn w100 mt-1">重 新 检 查</a>
+        </php>
+        <php elseif="!$noempty"><a href="?a=install" class="btn full" style="margin-top: 1rem;">下 一 步</a></php>
+
+    </div>
+  </div>
+  <import file="components/base.html" name="footer" />
+</body>
+</html>

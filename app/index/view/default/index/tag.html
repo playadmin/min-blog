@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <import file="components/components.html" name="head" />
+</head>
+<body class="<{SYS['SITE']['style']}>">
+    <import file="components/components.html" name="header" />
+    <div class="container lay-content">
+        <div class="grid">
+            <div class="col-3 xs-12 xm-5 xl-4">
+                <div class="content left">
+                    <import file="components/components.html" name="search" />
+                    <import file="components/components.html" name="newly" />
+                    <import file="components/components.html" name="public_tags" />
+                    <import file="components/components.html" name="private_tags" />
+                </div>
+            </div>
+    
+            <div class="col-9 xs-12 xm-7 xl-8">
+                <div class="content">
+                    <import file="components/components.html" name="tag-list" />
+                    <import file="components/components.html" name="pages" :conf="['ext'=>true]"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <import file="components/components.html" name="footer" />
+</body>

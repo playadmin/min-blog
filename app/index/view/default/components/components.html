@@ -1,0 +1,184 @@
+<template name="head">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><{SYS['SITE']['title'] ?? ''}></title>
+  <meta name="keywords" content="<{SYS['SITE']['keywords'] ?? ''}>">
+  <meta name="description" content="<{SYS['SITE']['description'] ?? ''}>">
+  <link rel="stylesheet" href="<{U_RES}>/css/min-blog.min.css">
+  <link rel="stylesheet" href="<{U_RES}>/css/main.css">
+</template>
+
+<template name="header">
+  <div class="lay-head fixed top">
+    <a href="<{U_HOME}>" style="font-size: .6rem;font-weight: 700;"><{SYS['SITE']['name'] ?? 'My Blog'}></a>
+    <div class="nav t-right">
+      <php foreach="$nav as $v"><a class="<{isset($active) && $active === $v[2] ? 'active' : ''}>" href="<{$v[1]}>"><{$v[0]}></a></php>
+    </div>
+    <a class="flex-xs head-nav-more" style="font-size: 1.5em;padding: 0 .4rem">
+      <i class="mb menu"></i>
+    </a>
+  </div>
+</template>
+
+<template name="footer">
+  <div class="lay-foot">
+    <p>
+      <strong>
+        <a class="grey-text text-lighten-3" href="http://www.z-php.com/">min-Blog</a>
+      </strong> powered by
+      <strong>
+        <a class="grey-text text-lighten-3" href="http://www.z-php.com/">ZPHP-MIN</a>
+      </strong>
+    </p>
+  </div>
+  <div class="fixed-box col">
+    <button style="background: #ff6600;">
+      <i class="mb up"></i>
+    </button>
+    <button style="background: #2c70c6;">
+      <i class="mb down"></i>
+    </button>
+  </div>
+  <div class="nav-overlay"></div>
+  <script src="<{U_RES}>/js/main.js"></script>
+</template>
+
+<template name="pages">
+  <php if="isset($page['pages']) && $page['pages'] > 1">
+    <div class="pages">
+      <php if="!empty($conf['total'])">
+        <div class="left">
+          <p>共计：<{$page['pages']}> 页</p>
+        </div>
+      </php>
+      <php if="!empty($conf['ext'])">
+        <div class="ext">
+          <?php $disabled = 1 === $page['p'] ? ' disabled' : ' ';?>
+          <a <{$disabled}>href="<{$page['first']}>">首页</a>
+          <a <{$disabled}>href="<{$page['prev']}>">上一页</a>
+        </div>
+      </php>
+      <div class="ul">
+        <php foreach="$page['list'] as $p=>$href">
+          <php if="$p === $page['p']">
+            <a disabled class="active"><{$p}></a>
+          </php>
+          <php else>
+            <a href="<{$href}>"><{$p}></a>
+          </php>
+        </php>
+      </div>
+      <php if="!empty($conf['ext'])">
+        <div class="ext">
+          <?php $disabled = $page['pages'] <= $page['p'] ? 'disabled ' : ' ';?>
+          <a <{$disabled}>href="<{$page['next']}>">下一页</a>
+          <a <{$disabled}>href="<{$page['last']}>">尾页</a>
+        </div>
+      </php>
+    </div>
+  </php>
+</template>
+
+<template name="search">
+  <php if="defined('USER') || !empty(SYS['SITE']['search'])">
+    <form action="<{U_HOME . 's'}>" class="input-group" style="margin-bottom: .4rem;">
+      <input type="text" name="w">
+      <button type="submit">搜索</button>
+    </form>
+  </php>
+</template>
+
+<template name="newly">
+  <div class="card shadow">
+    <div class="head">
+      <a href="">最近的文章</a>
+    </div>
+    <ul class="content">
+      <php if="!empty($newly)">
+        <php foreach="$newly as $v">
+          <a href="<{U_HOME . 'a/' . $v['id']}>"><li><{$v['title']}></li></a>
+        </php>
+      </php>
+    </ul>
+  </div>
+</template>
+
+<template name="public_tags">
+  <div class="card shadow">
+    <div class="head">标 签</div>
+    <div class="content tags">
+      <php if="!empty(TAGS[0])">
+        <php foreach="TAGS[0] as $v">
+          <php if="!$v['show']">
+            <a href="<{U_HOME . 't/' . $v['tid']}>" class="tag ghost"><{$v['tag']}></a>
+          </php>
+        </php>
+      </php>
+    </div>
+  </div>
+</template>
+
+<template name="private_tags">
+  <php if="defined('USER')">
+    <div class="card shadow">
+      <div class="head">私 有 标 签</div>
+      <div class="content tags">
+        <php if="!empty(TAGS[1])">
+          <php foreach="TAGS[1] as $v">
+            <php if="!$v['show']">
+              <a href="<{U_HOME . 't/' . $v['tid']}>" class="tag ghost"><{$v['tag']}></a>
+            </php>
+          </php>
+        </php>
+      </div>
+    </div>
+  </php>
+</template>
+
+<template name="tag-list">
+  <div class="card">
+    <div class="head center"><{$tag}></div>
+    <import file="components/components.html" name="list" />
+  </div>
+</template>
+<template name="list">
+  <php if="$list">
+    <div class="list">
+      <php foreach="$list as $v">
+        <a href="<{U_HOME . 'a/' . $v['id']}>" class="li">
+          <p class="title"><{$v['title']}></p>
+          <p class="t-right time"><{date('Y-m-d H:i:s', $v['addtime'])}></p>
+        </a>
+      </php>
+    </div>
+  </php>
+  <php else>
+    <h3 style="text-align:center;padding: 1em 0;border: solid 1px #ccc;">没有数据</h3>
+  </php>
+</template>
+
+<template name="content">
+  <div class="content">
+    <div class="card art">
+      <?php $tags = defined('USER') ? (TAGS[1] ?? []) + (TAGS[0] ?? []) : (TAGS[0] ?? []);?>
+      <div class="head">
+        <php if="$art['tids'] && $tids = explode(',', $art['tids'])">
+            <php foreach="$tids as $v">
+                <php if="isset($tags[$v])">
+                    <a href="<{U_HOME . 't/' . $v}>"><{$tags[$v]['tag']}></a>
+                </php>
+            </php>
+        </php>
+      </div>
+      <div class="content">
+        <h1 class="center"><{$art['title']}></h1>
+        <{$art['content']}>
+      </div>
+      <div class="foot">
+        <p class="time">发布：<{date('Y-m-d H:i:s', $art['addtime'])}></p>
+        <p class="t-right time"><{$art['lasttime'] ? '修改：' . date('Y-m-d H:i:s', $art['lasttime']) : ''}></p>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,59 @@
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`(
+`uid` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`loginid` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '账号',
+`nickname` VARCHAR(32) CHARACTER SET utf8mb4 NOT NULL DEFAULT '' COMMENT '昵称',
+`headimgurl` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '头像',
+`passwd` CHAR(32) NOT NULL DEFAULT '',
+`email` VARCHAR(32) NOT NULL DEFAULT '' COMMENT 'Email',
+`regtime` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '注册时间',
+`regdate` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '注册日期',
+`lasttime` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '上次登录时间',
+`settime` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '修改时间',
+`lastip` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '上次登录ip',
+`lastid` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '上次登录账号',
+`status` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '0:锁定,1:正常',
+INDEX `loginid`(`loginid`),
+INDEX `nickname`(`nickname`),
+INDEX `email`(`email`),
+INDEX `regtime`(`regtime`),
+INDEX `regdate`(`regdate`),
+INDEX `lasttime`(`lasttime`),
+INDEX `settime`(`settime`),
+INDEX `lastip`(`lastip`),
+INDEX `lastid`(`lastid`),
+INDEX `status`(`status`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `tag`;
+CREATE TABLE `tag`(
+`tid` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`tag` VARCHAR(32) NOT NULL DEFAULT '' COMMENT '标签',
+`mark` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '标签',
+`show` TINYINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '0:所有可见,1:仅自己可见',
+`sort` SMALLINT UNSIGNED NOT NULL DEFAULT 0 COMMENT '排序',
+INDEX `tag`(`tag`),
+INDEX `show`(`show`),
+INDEX `sort`(`sort`)
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `article`;
+CREATE TABLE `article`(
+`id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`tids` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '标签,,,',
+`title` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '标题',
+`brief` TEXT COMMENT '简介',
+`content` MEDIUMTEXT COMMENT '全文',
+`addtime` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '发布时间',
+`lasttime` INT UNSIGNED NOT NULL DEFAULT 0 COMMENT '最后编辑时间',
+INDEX `title`(`title`),
+INDEX `addtime`(`addtime`),
+INDEX `lasttime`(`lasttime`)
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `art_tag`;
+CREATE TABLE `art_tag`(
+`id` INT UNSIGNED NOT NULL DEFAULT 0,
+`tid` INT UNSIGNED NOT NULL DEFAULT 0,
+PRIMARY KEY (`id`,`tid`)
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8;

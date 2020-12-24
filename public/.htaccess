@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteRule ^ad$ ad/ [R]
+    RewriteRule ^ad/.* ad/index.html [L]
+    RewriteRule ^(.+\.[\w-\d]+)(.*)$ $1 [L]
+    RewriteRule ^(.+)$ index.php [L,E=PATH_INFO:$1]
+</IfModule>

@@ -1,0 +1,5 @@
+location ~* ^/((?!\.[\w-\d]).)*$ {
+    rewrite ^/ad$ /ad/ redirect;
+    rewrite ^/ad/.* /ad/index.html last;
+    rewrite ^/(.+)$ /index.php/$1 last;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <import file="components/base.html" name="header" />
+</head>
+
+<body>
+  <div class="container lay-content green">
+    <p class="title">min-Blog 安装程序</p>
+    <div class="center-box">
+        <div class="card shadow">
+          <div class="content pink">
+            <h3>环境要求：</h3>
+            <ol>
+              <li>PHP：7.1 以上</li>
+              <li>Mysql：5.7 以上 或 MariaDB 10.1 以上</li>
+              <li>Apache2.4 以上 或 Nginx 1.15 以上</li>
+              <li>需要伪静态支持</li>
+            </ol>
+          </div>
+        </div>
+        <div class="card shadow">
+          <div class="content">
+            <span class="card-title">Apache 伪静态配置：</span>
+            <p>&lt;IfModule mod_rewrite.c&gt;</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;RewriteEngine on</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;RewriteRule ^ad/(.*)|ad$ ad/index.html [L]</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;RewriteRule ^(.+\.[\w-\d]+)(.*)$ $1 [L]</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;RewriteRule ^(.+)$ index.php [L,E=PATH_INFO:$1]</p>
+            <p>&lt;/IfModule&gt;</p>
+          </div>
+        </div>
+        <div class="card shadow">
+          <div class="content">
+            <span class="card-title">Nginx 伪静态配置：</span>
+            <p>location ~* ^/((?!\.[\w-\d]).)*$ {</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;rewrite ^/ad/(.*)|/ad$ /ad/index.html last;</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;rewrite ^/(.+)$ /index.php/$1 last;</p>
+            <p>}</p>
+          </div>
+        </div>
+        <a href="?a=check" class="btn w100" style="margin: 1rem 0;">开 始 安 装</a>
+    </div>
+  </div>
+  <import file="components/base.html" name="footer" />
+</body>
+</html>
