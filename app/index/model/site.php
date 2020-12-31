@@ -120,7 +120,8 @@ class site extends model
     public function getTotal()
     {
         $db = $this->db();
-        $data = $db->table('art_tag')->field('COUNT(*) as `sum`, `tid`')->group('tid')->select();
+        $data['tags'] = $db->table('art_tag')->field('COUNT(*) as `sum`, `tid`')->group('tid')->select();
+        $data['total'] = $db->table('article')->find('COUNT(*)');
         return $data;
     }
 }
