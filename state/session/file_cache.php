@@ -102,7 +102,7 @@ class file_cache
     {
         $key = $this->accountKey($login);
         if ($account = getLazyCache($key)) {
-            if ((!$this->tokens = $account['tokens'] ?? []) || !in_array(TOKEN, $this->tokens)) {
+            if (empty($account['tokens']) || !in_array(TOKEN, $account['tokens'])) {
                 return false;
             }
             $account['type'] = $login[0];
@@ -121,10 +121,9 @@ class file_cache
     public function saveToken($account, $login)
     {
         $token = $this->getToken($account);
-        if (!$this->tokens) {
+        if (empty($account['tokens'])) {
             $account['tokens'] = [$token];
-        } elseif (!in_array($token, $this->tokens)) {
-            $account['tokens'] = $this->tokens;
+        } elseif (!in_array($token, $account['tokens'])) {
             $max = SYS['MAX_TOKEN'][APP_NAME] ?? 1;
             $len = count($account['tokens']);
             switch ($len <=> $max) {
